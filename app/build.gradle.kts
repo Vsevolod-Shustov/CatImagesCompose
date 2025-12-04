@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.apptemplate"
+    namespace = "com.example.catimagescompose"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.apptemplate"
+        applicationId = "com.example.catimagescompose"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
