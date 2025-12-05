@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -36,8 +39,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        // Extension level
+        compilerOptions {
+            jvmTarget = JvmTarget.fromTarget("17")
+            languageVersion = KotlinVersion.fromVersion("2.1")
+            apiVersion = KotlinVersion.fromVersion("2.1")
+        }
     }
     buildFeatures {
         compose = true
