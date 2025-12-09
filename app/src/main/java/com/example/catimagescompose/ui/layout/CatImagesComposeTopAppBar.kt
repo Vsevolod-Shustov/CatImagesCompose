@@ -1,4 +1,4 @@
-package com.example.catimagescompose.ui.scaffold
+package com.example.catimagescompose.ui.layout
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu

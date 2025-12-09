@@ -1,4 +1,4 @@
-package com.example.catimagescompose.ui.scaffold
+package com.example.catimagescompose.ui.layout
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,9 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.catimagescompose.ui.ListDetailImagesLayout
-import com.example.catimagescompose.ui.scaffold.CatImagesComposeBottomAppBar
-import com.example.catimagescompose.ui.scaffold.CatImagesComposeTopAppBar
+import com.example.catimagescompose.ui.ImageGrid
 import kotlinx.coroutines.CoroutineScope
 
 @ExperimentalMaterial3Api
@@ -47,7 +45,7 @@ fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerS
             //DataStoreExample(innerPadding)
             //ListDetailLayout()
             //Photos()
-            ListDetailImagesLayout()
+            ImageGrid()
         }
     }
 }

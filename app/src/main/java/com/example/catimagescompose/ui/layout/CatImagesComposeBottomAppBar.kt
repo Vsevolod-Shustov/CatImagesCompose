@@ -1,4 +1,4 @@
-package com.example.catimagescompose.ui.scaffold
+package com.example.catimagescompose.ui.layout
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.BottomAppBar
