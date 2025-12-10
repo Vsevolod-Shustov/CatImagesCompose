@@ -15,7 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class Photo(val id: String): Parcelable
+class CatImage(val id: String): Parcelable
 
 @Composable
 fun ImageGrid(viewModel: ImageViewModel = hiltViewModel()) {
@@ -29,9 +29,9 @@ fun ImageGrid(viewModel: ImageViewModel = hiltViewModel()) {
         contentPadding = PaddingValues(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        items(data) { photo ->
+        items(data) { image ->
             ImageCard(
-                photo,
+                image,
                 modifier = Modifier
                     .fillParentMaxWidth()
             )
