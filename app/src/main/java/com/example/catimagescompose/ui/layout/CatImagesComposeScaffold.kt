@@ -6,21 +6,34 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.Key.Companion.Home
 import androidx.compose.ui.unit.dp
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.ui.NavDisplay
 import com.example.catimagescompose.ui.ImageGrid
+import com.example.catimagescompose.ui.SingleImage
 import kotlinx.coroutines.CoroutineScope
+
+data object Grid
+data class Single(val id: String)
 
 @ExperimentalMaterial3Api
 @Composable
 fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerState, scope: CoroutineScope) {
+
+    val backStack = remember { mutableStateListOf<Any>(Grid) }
 
     Scaffold(
         topBar = {
@@ -42,10 +55,27 @@ fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerS
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            //DataStoreExample(innerPadding)
-            //ListDetailLayout()
-            //Photos()
-            ImageGrid()
+            NavDisplay(
+                backStack = backStack,
+                onBack = { backStack.removeLastOrNull() },
+                entryProvider = { key ->
+                    when (key) {
+                        is Grid -> NavEntry(key) {
+                            Column {
+                                ImageGrid(backStack)
+                            }
+                        }
+
+                        is Single -> NavEntry(key) {
+                            Text("Product ${key.id} ")
+                            SingleImage(key.id)
+                        }
+
+                        else -> NavEntry(Unit) { Text("Unknown route") }
+                    }
+                }
+            )
+            //ImageGrid()
         }
     }
 }

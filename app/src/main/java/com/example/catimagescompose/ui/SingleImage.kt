@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -16,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.example.catimagescompose.data.ImageDataModel
 
 @Composable
-fun SingleImage(photo: ImageDataModel) {
+fun SingleImage(id: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -25,9 +26,9 @@ fun SingleImage(photo: ImageDataModel) {
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         Column {
-            ImageCard(photo)
+            ImageCard(id)
             Text(
-                "Item: ${photo.id}",
+                "Item: ${id}",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold
             )

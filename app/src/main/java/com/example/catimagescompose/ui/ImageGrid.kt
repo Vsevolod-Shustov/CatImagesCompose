@@ -1,6 +1,8 @@
 package com.example.catimagescompose.ui
 
+import android.R.attr.onClick
 import android.os.Parcelable
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,16 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.parcelize.Parcelize
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.catimagescompose.data.ImageDataModel
+import com.example.catimagescompose.ui.layout.Single
 
-@Parcelize
-class CatImage(val id: String): Parcelable
 
 @Composable
-fun ImageGrid(viewModel: ImageViewModel = hiltViewModel()) {
+fun ImageGrid(backStack: SnapshotStateList<Any>, viewModel: ImageViewModel = hiltViewModel()) {
     val data by viewModel.data.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
@@ -31,9 +34,10 @@ fun ImageGrid(viewModel: ImageViewModel = hiltViewModel()) {
     ) {
         items(data) { image ->
             ImageCard(
-                image,
+                image.id,
                 modifier = Modifier
                     .fillParentMaxWidth()
+                    .clickable { backStack.add(Single(image.id)) }
             )
         }
     }
