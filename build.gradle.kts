@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.hilt.gradle) apply false
     alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.navigation.safe.args) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.kotlinJvm) apply false
 }

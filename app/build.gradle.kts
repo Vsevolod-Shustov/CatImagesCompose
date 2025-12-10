@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.navigation.safe.args)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlinx.serialization)
 }
@@ -73,11 +72,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.androidx.datastore.preferences)
-
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.compose.material3.adaptive:adaptive:1.1.0")
-    implementation("androidx.compose.material3.adaptive:adaptive-layout:1.1.0")
-    implementation("androidx.compose.material3.adaptive:adaptive-navigation:1.1.0")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
