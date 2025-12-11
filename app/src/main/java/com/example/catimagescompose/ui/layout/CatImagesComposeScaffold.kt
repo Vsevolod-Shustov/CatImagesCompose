@@ -1,5 +1,6 @@
 package com.example.catimagescompose.ui.layout
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +14,9 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
+import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -21,19 +25,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key.Companion.Home
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.example.catimagescompose.ui.ImageGrid
 import com.example.catimagescompose.ui.SingleImage
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.serialization.Serializable
+import java.util.Map.entry
 
-data object Grid
-data class Single(val id: String)
+@Serializable
+object Grid: NavKey
 
+@Serializable
+data class Single(val id: String): NavKey
+
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerState, scope: CoroutineScope) {
 
-    val backStack = remember { mutableStateListOf<Any>(Grid) }
+    val backStack = remember { mutableStateListOf<NavKey>(Grid) }
+    val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
 
     Scaffold(
         topBar = {
@@ -58,24 +71,26 @@ fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerS
             NavDisplay(
                 backStack = backStack,
                 onBack = { backStack.removeLastOrNull() },
-                entryProvider = { key ->
-                    when (key) {
-                        is Grid -> NavEntry(key) {
-                            Column {
-                                ImageGrid(backStack)
+                sceneStrategy = listDetailStrategy,
+                entryProvider = entryProvider {
+                    entry<Grid>(
+                        metadata = ListDetailSceneStrategy.listPane(
+                            detailPlaceholder = {
+                                Text("Choose an image from the list")
                             }
+                        )
+                    ) {
+                        Column {
+                            ImageGrid(backStack)
                         }
-
-                        is Single -> NavEntry(key) {
-                            Text("Product ${key.id} ")
-                            SingleImage(key.id)
-                        }
-
-                        else -> NavEntry(Unit) { Text("Unknown route") }
+                    }
+                    entry<Single>(
+                        metadata = ListDetailSceneStrategy.detailPane()
+                    ) { image ->
+                        SingleImage(image.id)
                     }
                 }
             )
-            //ImageGrid()
         }
     }
 }

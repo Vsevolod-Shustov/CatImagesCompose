@@ -16,12 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation3.runtime.NavKey
 import com.example.catimagescompose.data.ImageDataModel
 import com.example.catimagescompose.ui.layout.Single
 
 
 @Composable
-fun ImageGrid(backStack: SnapshotStateList<Any>, viewModel: ImageViewModel = hiltViewModel()) {
+fun ImageGrid(backStack: SnapshotStateList<NavKey>, viewModel: ImageViewModel = hiltViewModel()) {
     val data by viewModel.data.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
