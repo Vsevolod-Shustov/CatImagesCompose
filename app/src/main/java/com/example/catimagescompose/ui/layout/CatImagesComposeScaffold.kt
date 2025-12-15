@@ -63,7 +63,7 @@ fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerS
         },
         bottomBar = {
             if (!windowSizeClass.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND)) {
-                CatImagesComposeBottomAppBar()
+                CatImagesComposeBottomAppBar(backStack)
             }
         },
         floatingActionButton = {
@@ -74,20 +74,7 @@ fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerS
     ) { innerPadding ->
         Row {
             if (windowSizeClass.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND)) {
-                NavigationRail {
-                    NavigationRailItem(
-                        selected = false,
-                        onClick = { /* Navigate to Item 1 */ },
-                        label = { Text("Item 1") },
-                        icon = { Icon(Icons.Default.Home, contentDescription = "Item 1") }
-                    )
-                    NavigationRailItem(
-                        selected = false,
-                        onClick = { /* Navigate to Item 2 */ },
-                        label = { Text("Item 2") },
-                        icon = { Icon(Icons.Default.Person, contentDescription = "Item 2") }
-                    )
-                }
+                CatImagesComposeRail(backStack)
             }
             Column(
                 modifier = Modifier
