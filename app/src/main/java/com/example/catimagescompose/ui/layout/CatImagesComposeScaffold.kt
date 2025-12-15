@@ -15,8 +15,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
-import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -29,7 +27,9 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.example.catimagescompose.ui.ImageGrid
+import com.example.catimagescompose.ui.ListDetailSceneStrategy
 import com.example.catimagescompose.ui.SingleImage
+import com.example.catimagescompose.ui.rememberListDetailSceneStrategy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.Serializable
 import java.util.Map.entry
@@ -40,7 +40,6 @@ object Grid: NavKey
 @Serializable
 data class Single(val id: String): NavKey
 
-@OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerState, scope: CoroutineScope) {
@@ -74,11 +73,7 @@ fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerS
                 sceneStrategy = listDetailStrategy,
                 entryProvider = entryProvider {
                     entry<Grid>(
-                        metadata = ListDetailSceneStrategy.listPane(
-                            detailPlaceholder = {
-                                Text("Choose an image from the list")
-                            }
-                        )
+                        metadata = ListDetailSceneStrategy.listPane()
                     ) {
                         Column {
                             ImageGrid(backStack)
