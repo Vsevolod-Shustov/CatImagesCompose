@@ -11,10 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.catimagescompose.data.ImageDataModel
+import com.example.catimagescompose.data.UserPreferencesStore
 
 @Composable
 fun SingleImage(id: String) {
@@ -25,8 +27,10 @@ fun SingleImage(id: String) {
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
+        val context = LocalContext.current
+        val store = UserPreferencesStore(context)
         Column {
-            ImageCard(id)
+            ImageCard(id, store)
             Text(
                 "Item: ${id}",
                 fontSize = 32.sp,
