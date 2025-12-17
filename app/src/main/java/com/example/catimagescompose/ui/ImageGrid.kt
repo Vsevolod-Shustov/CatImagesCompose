@@ -25,6 +25,7 @@ import androidx.navigation3.runtime.NavKey
 import com.example.catimagescompose.data.ImageDataModel
 import com.example.catimagescompose.data.UserPreferencesStore
 import com.example.catimagescompose.ui.layout.Single
+import kotlin.text.contains
 
 
 @Composable
@@ -33,7 +34,9 @@ fun ImageGrid(backStack: SnapshotStateList<NavKey>, viewModel: ImageViewModel = 
 
     val context = LocalContext.current
     val store = UserPreferencesStore(context)
-    val likedImages = store.getLikedImages.collectAsState(initial = false).value
+    val likedImages = store.getLikedImages.collectAsState(initial = emptySet()).value
+    val addLikedImage = store::addLikedImage
+    val removeLikedImage = store::removeLikedImage
 
     LaunchedEffect(Unit) {
         viewModel.loadData()
@@ -50,7 +53,9 @@ fun ImageGrid(backStack: SnapshotStateList<NavKey>, viewModel: ImageViewModel = 
             items(data) { image ->
                 ImageCard(
                     image.id,
-                    store,
+                    likedImages.contains(image.id),
+                    addLikedImage,
+                    removeLikedImage,
                     modifier = Modifier
                         .fillParentMaxWidth()
                         .clickable { backStack.add(Single(image.id)) }

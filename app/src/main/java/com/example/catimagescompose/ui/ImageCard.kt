@@ -37,10 +37,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun ImageCard(
     id: String,
-    store: UserPreferencesStore,
+    liked: Boolean = false,
+    addLikedImage: suspend (String) -> Unit,
+    removeLikedImage: suspend (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val liked = store.getLikedImages.collectAsState(initial = emptySet()).value.contains(id)
 
     Card(
         modifier = modifier,
@@ -74,9 +75,9 @@ fun ImageCard(
                     .clickable(onClick = {
                         CoroutineScope(Dispatchers.IO).launch {
                             if (liked) {
-                                store.removeLikedImage(id)
+                                removeLikedImage(id)
                             } else {
-                                store.addLikedImage(id)
+                                addLikedImage(id)
                             }
                         }
                     }),
