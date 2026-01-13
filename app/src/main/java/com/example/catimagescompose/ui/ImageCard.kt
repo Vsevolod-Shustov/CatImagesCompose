@@ -1,13 +1,20 @@
 package com.example.catimagescompose.ui
 
+import android.R.attr.contentDescription
+import android.R.color.black
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -18,6 +25,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -42,6 +51,7 @@ fun ImageCard(
     removeLikedImage: suspend (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val tintColor = if (liked) Red else White
 
     Card(
         modifier = modifier,
@@ -59,19 +69,14 @@ fun ImageCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
             )
-//            if(liked) {
-//                Icon(Icons.Default.Favorite, contentDescription = "Liked icon")
-//            }
-//            else {
-//                Icon(Icons.Default.FavoriteBorder, contentDescription = "Like icon")
-//            }
             Icon(
                 if (liked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                 contentDescription = "Like icon",
+                tint = tintColor,
                 modifier = Modifier
                     .size(64.dp)
                     .padding(8.dp)
-                    .align(Alignment.BottomEnd)
+                    .align(Alignment.BottomStart)
                     .clickable(onClick = {
                         CoroutineScope(Dispatchers.IO).launch {
                             if (liked) {
