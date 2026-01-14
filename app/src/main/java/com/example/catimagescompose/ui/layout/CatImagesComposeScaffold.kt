@@ -1,5 +1,11 @@
 package com.example.catimagescompose.ui.layout
 
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -87,6 +93,18 @@ fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerS
                     backStack = backStack,
                     onBack = { backStack.removeLastOrNull() },
                     sceneStrategy = listDetailStrategy,
+                    transitionSpec = {
+                        ContentTransform(
+                            targetContentEnter = slideInHorizontally(initialOffsetX = { it }),
+                            initialContentExit = slideOutHorizontally(targetOffsetX = { -it })
+                        )
+                    },
+                    popTransitionSpec = {
+                        ContentTransform(
+                            targetContentEnter = slideInHorizontally(initialOffsetX = { -it }),
+                            initialContentExit = slideOutHorizontally(targetOffsetX = { it })
+                        )
+                    },
                     entryProvider = entryProvider {
                         entry<Grid>(
                             metadata = ListDetailSceneStrategy.listPane()
