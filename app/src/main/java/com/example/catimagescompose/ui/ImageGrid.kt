@@ -24,12 +24,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavKey
 import com.example.catimagescompose.data.ImageDataModel
 import com.example.catimagescompose.data.UserPreferencesStore
-import com.example.catimagescompose.ui.layout.Single
+import com.example.catimagescompose.ui.layout.Screen
 import kotlin.text.contains
 
 
 @Composable
-fun ImageGrid(backStack: SnapshotStateList<NavKey>, viewModel: ImageViewModel = hiltViewModel()) {
+fun ImageGrid(backStack: SnapshotStateList<Screen>, viewModel: ImageViewModel = hiltViewModel()) {
     val data by viewModel.data.observeAsState(emptyList())
 
     val context = LocalContext.current
@@ -58,7 +58,7 @@ fun ImageGrid(backStack: SnapshotStateList<NavKey>, viewModel: ImageViewModel = 
                     removeLikedImage,
                     modifier = Modifier
                         .fillParentMaxWidth()
-                        .clickable { backStack.add(Single(image.id)) }
+                        .clickable { backStack.add(Screen.Single(image.id)) }
                 )
             }
         }

@@ -23,7 +23,7 @@ class ListDetailScene<T : Any>(
     override val key: Any,
     override val previousEntries: List<NavEntry<T>>,
     val listEntry: NavEntry<T>,
-    val detailEntry: NavEntry<T>,
+    val detailEntry: NavEntry<T>
 ) : Scene<T> {
     override val entries: List<NavEntry<T>> = listOf(listEntry, detailEntry)
     override val content: @Composable (() -> Unit) = {

@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation3.runtime.NavKey
 
 @Composable
-fun CatImagesComposeBottomAppBar(backStack: SnapshotStateList<NavKey>) {
+fun CatImagesComposeBottomAppBar(backStack: SnapshotStateList<Screen>) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.primary,
@@ -31,7 +31,7 @@ fun CatImagesComposeBottomAppBar(backStack: SnapshotStateList<NavKey>) {
                 contentDescription = null,
                 modifier = Modifier.clickable(onClick = {
                     backStack.add(
-                        Grid
+                        Screen.Grid
                     )
                 })
             )

@@ -39,6 +39,7 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_MEDIUM_LOWER_BOUND
+import com.example.catimagescompose.ui.About
 import com.example.catimagescompose.ui.ImageGrid
 import com.example.catimagescompose.ui.ListDetailSceneStrategy
 import com.example.catimagescompose.ui.SingleImage
@@ -47,24 +48,29 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.Serializable
 import java.util.Map.entry
 
-@Serializable
-object Grid: NavKey
 
-@Serializable
-data class Single(val id: String): NavKey
+sealed interface Screen : NavKey {
+    @Serializable
+    data object Grid : Screen
+
+    @Serializable
+    data class Single(val id: String): Screen
+
+    data object About : Screen
+}
 
 @ExperimentalMaterial3Api
 @Composable
 fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerState, scope: CoroutineScope) {
 
-    val backStack = remember { mutableStateListOf<NavKey>(Grid) }
+    val backStack = remember { mutableStateListOf<Screen>(Screen.Grid) }
     val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>()
     val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
 
     Scaffold(
         topBar = {
             if (!windowSizeClass.isWidthAtLeastBreakpoint(WIDTH_DP_MEDIUM_LOWER_BOUND)) {
-                CatImagesComposeTopAppBar(drawerState, scope)
+                CatImagesComposeTopAppBar(drawerState, scope, backStack)
             }
         },
         bottomBar = {
@@ -106,18 +112,19 @@ fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerS
                         )
                     },
                     entryProvider = entryProvider {
-                        entry<Grid>(
+                        entry<Screen.Grid>(
                             metadata = ListDetailSceneStrategy.listPane()
                         ) {
                             Column {
                                 ImageGrid(backStack)
                             }
                         }
-                        entry<Single>(
+                        entry<Screen.Single>(
                             metadata = ListDetailSceneStrategy.detailPane()
                         ) { image ->
                             SingleImage(image.id)
                         }
+                        entry<Screen.About>(){About()}
                     }
                 )
             }

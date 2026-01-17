@@ -12,11 +12,11 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation3.runtime.NavKey
 
 @Composable
-fun CatImagesComposeRail(backStack: SnapshotStateList<NavKey>) {
+fun CatImagesComposeRail(backStack: SnapshotStateList<Screen>) {
     NavigationRail {
         NavigationRailItem(
             selected = false,
-            onClick = { backStack.add(Grid) },
+            onClick = { backStack.add(Screen.Grid) },
             label = { Text("Home") },
             icon = { Icon(Icons.Default.Home, contentDescription = "Item 1") }
         )

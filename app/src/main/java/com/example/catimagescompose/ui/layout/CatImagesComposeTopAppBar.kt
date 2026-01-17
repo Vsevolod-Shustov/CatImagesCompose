@@ -11,13 +11,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import com.example.catimagescompose.ui.MainDropdownMenu
 import com.example.catimagescompose.ui.ThemeSwitcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CatImagesComposeTopAppBar(drawerState: DrawerState, scope: CoroutineScope) {
+fun CatImagesComposeTopAppBar(drawerState: DrawerState, scope: CoroutineScope, backStack: SnapshotStateList<Screen>) {
     TopAppBar(
     colors = topAppBarColors(
     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -28,6 +32,7 @@ fun CatImagesComposeTopAppBar(drawerState: DrawerState, scope: CoroutineScope) {
     },
     actions = {
         ThemeSwitcher()
+        MainDropdownMenu(backStack)
     },
     navigationIcon = {
         IconButton(onClick = {

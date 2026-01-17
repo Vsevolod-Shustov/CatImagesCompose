@@ -38,7 +38,6 @@ import coil3.request.crossfade
 import com.example.catimagescompose.R
 import com.example.catimagescompose.data.ImageDataModel
 import com.example.catimagescompose.data.UserPreferencesStore
-import com.example.catimagescompose.ui.layout.Single
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

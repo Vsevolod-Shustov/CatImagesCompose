@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.catimagescompose.data.ImageDataModel
 import com.example.catimagescompose.data.UserPreferencesStore
-import com.example.catimagescompose.ui.layout.Single
 
 @Composable
 fun SingleImage(id: String) {
