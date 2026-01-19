@@ -41,12 +41,11 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.window.core.layout.WindowSizeClass.Companion.WIDTH_DP_MEDIUM_LOWER_BOUND
 import com.example.catimagescompose.ui.About
 import com.example.catimagescompose.ui.ImageGrid
-import com.example.catimagescompose.ui.ListDetailSceneStrategy
 import com.example.catimagescompose.ui.SingleImage
-import com.example.catimagescompose.ui.rememberListDetailSceneStrategy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.Serializable
-import java.util.Map.entry
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
+import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
 
 
 sealed interface Screen : NavKey {
@@ -59,6 +58,7 @@ sealed interface Screen : NavKey {
     data object About : Screen
 }
 
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun CatImagesComposeScaffold(modifier: Modifier = Modifier, drawerState: DrawerState, scope: CoroutineScope) {
