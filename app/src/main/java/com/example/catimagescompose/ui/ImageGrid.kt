@@ -19,17 +19,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.datastore.dataStore
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavKey
 import com.example.catimagescompose.data.ImageDataModel
 import com.example.catimagescompose.data.UserPreferencesStore
 import com.example.catimagescompose.ui.layout.Screen
+import org.koin.androidx.compose.koinViewModel
 import kotlin.text.contains
 
 
 @Composable
-fun ImageGrid(backStack: SnapshotStateList<Screen>, viewModel: ImageViewModel = hiltViewModel()) {
+fun ImageGrid(backStack: SnapshotStateList<Screen>, viewModel: ImageViewModel = koinViewModel()) {
     val data by viewModel.data.observeAsState(emptyList())
 
     val context = LocalContext.current

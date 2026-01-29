@@ -6,12 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.catimagescompose.data.ImageDataModel
 import com.example.catimagescompose.data.ImageDataRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class ImageViewModel @Inject constructor(private val repository: ImageDataRepository) : ViewModel() {
+
+class ImageViewModel (private val repository: ImageDataRepository) : ViewModel() {
 
     private val _data = MutableLiveData<List<ImageDataModel>>()
     val data: LiveData<List<ImageDataModel>> get() = _data

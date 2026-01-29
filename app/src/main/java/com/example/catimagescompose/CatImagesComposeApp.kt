@@ -1,7 +1,17 @@
 package com.example.catimagescompose
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.example.catimagescompose.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
-@HiltAndroidApp
-class CatImagesComposeApp : Application()
+class CatImagesComposeApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin {
+            androidContext(this@CatImagesComposeApp)
+            modules(appModule)
+        }
+    }
+}
